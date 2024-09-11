@@ -1,0 +1,21 @@
+auth apis (register : (create, update, show, delete))
+
+
+create models orderd like this
+
+level: name
+subscription_type: type, delai (month or 3 months or year), price
+class_subscription_types:()
+class: level, name, age_from, age_to
+coachs : user with docs
+chochs_branches:(coach, branch)
+stadiums: name, size, location, photos, branch
+working days:(branch, day_name)
+timing_periods: (branch, , name, , show or hide in app ,time periods from to days)
+timing_periods_levels : (timing_periods, class, capacity, coach, stadium )
+
+subscriber: first_name, second name, last_name,  age, parent (model NewUser)
+
+training_sessions (timing_periods_levels, )
+subscribers (training_sessions, subscription_type, payment_amount, phone_number, name of the child, parent_parentity)
+reports (some sommes)

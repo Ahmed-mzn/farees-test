@@ -1,0 +1,431 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{ form.name }}</title>
+
+    <link rel="stylesheet" href="{%  static '/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/all.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/owl.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/main.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="shortcut icon" href="{{ form.get_logo }}" type="image/x-icon">
+    <style>
+        .page-header.single-header::before {
+            width: 100% !important;
+            height: 100% !important;
+            background: none !important;
+        }
+
+        .header-section.active {
+            background: {{ form.primary_color }} !important;
+            top: 0 !important;
+        }
+
+        .copyright {
+            border-top: 1px solid {{ form.primary_color }} !important;
+        }
+
+        .preloader {
+            background-color: {{ form.primary_color }} !important;
+        }
+        .preloader-icon span {
+            background: white !important;
+        }
+    </style>
+
+</head>
+
+<body data-spy="scroll" data-target="#faq-menu" data-offset="150">
+    <div class="reverse-gear">
+        <!--============= ScrollToTop Section Starts Here =============-->
+        <div class="preloader">
+            <div class="preloader-inner">
+                <div class="preloader-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+
+        <!--============= ScrollToTop Section Ends Here =============-->
+
+
+        <!--============= Header Section Starts Here =============-->
+        <header class="header-section inner-header">
+            <div class="container">
+                <div class="header-wrapper">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="{{ form.get_logo }}" alt="logo">
+                        </a>
+                    </div>
+                    <ul class="menu">
+                        <li>
+                            <a href="#contact">اتصال</a>
+                        </li>
+                    </ul>
+                    <div class="header-bar d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--============= Header Section Ends Here =============-->
+
+
+        <!--============= Header Section Ends Here =============-->
+        <section class="page-header single-header bg_img oh" data-background="{{ form.header_image }}">
+            <div class="bottom-shape d-none d-md-block">
+                <img src="{% static '/assets/css/img/page-header.png' %}" alt="css">
+            </div>
+        </section>
+        <!--============= Header Section Ends Here =============-->
+
+
+
+        <!--============= Contact Section Starts Here =============-->
+        <section class="contact-section padding-top padding-bottom">
+            <div class="container">
+                <div class="section-header mw-100 cl-white">
+                    <h2 class="title">{{ form.name}}</h2>
+                    <p>{{ form.description }}</p>
+                </div>
+                <div class="row justify-content-center justify-content-lg-between">
+                    <div class="col-lg-7">
+                        <div class="contact-wrapper">
+                            <h4 class="title text-center mb-30">إضافة تذكرة لخدمتكم</h4>
+                            <form class="contact-form" id="contact_form_submit">
+                                {% for element in form.elements.all %}
+                                    {% if element.type.key == 'input' or element.type.key == 'name' %}
+                                        <div class="form-group">
+                                            <label for="{{ element.id }}">{{ element.name }} {% if element.required %}<span style="color: red;">*</span>{% endif %}</label>
+                                            <input type="text" placeholder="{{ element.name }}" id="{{ element.id }}" {% if element.required %}required{% endif %}>
+                                            <div id="validate{{ element.id }}" class="invalid-feedback">test text</div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if element.type.key == 'phone' %}
+                                        <div class="form-group">
+                                            <label for="{{ element.id }}">{{ element.name }} {% if element.required %}<span style="color: red;">*</span>{% endif %}</label>
+                                            <input type="text" name="mobile" placeholder="966xxxxxxxxx" id="{{ element.id }}" {% if element.required %}required{% endif %}>
+                                            <div id="validate{{ element.id }}" class="invalid-feedback">الرجاء التأكد من رقم الهاتف </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if element.type.key == 'order_id' %}
+                                        <div class="form-group">
+                                            <label for="{{ element.id }}">{{ element.name }} {% if element.required %}<span style="color: red;">*</span>{% endif %}</label>
+                                            <input type="text" name="mobile" placeholder="{{ element.name }}" id="{{ element.id }}" {% if element.required %}required{% endif %}>
+                                            <div id="validate{{ element.id }}" class="invalid-feedback">الرجاء التأكد من رقم الطلب </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if element.type.key == 'select' %}
+                                        <div class="form-group">
+                                            <label for="{{ element.id }}">{{ element.name }} {% if element.required %}<span style="color: red;">*</span>{% endif %}</label>
+                                            <select id="{{ element.id }}" style="border-radius: 5px;padding: 10px;background-color: #f6f6fa;" {% if element.required %}required{% endif %}>
+                                                {% for option in element.options.all %}
+                                                    <option value="{{ option.value }}">{{ option.value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if element.type.key == 'textarea' %}
+                                        <div class="form-group mb-0">
+                                            <label for="{{ element.id }}">{{ element.name }} {% if element.required %}<span style="color: red;">*</span>{% endif %}</label>
+                                            <textarea id="{{ element.id }}" placeholder="{{ element.name }}" {% if element.required %}required{% endif %}></textarea>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if element.type.key == 'checkbox' %}
+                                        <div class="form-group mb-0">
+                                            <div class="form-check">
+                                                <input type="checkbox" id="{{ element.id }}"><label for="check">{{ element.name }}</label>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if element.type.key == 'image' %}
+                                        <div class="form-group">
+                                            <label for="{{ element.id }}">{{ element.name }} <span style="color: red;">*</span></label>
+                                            <input type="file" accept="image/*" placeholder="{{ element.name }}" id="{{ element.id }}" required>
+                                            <div id="formNameError" class="invalid-feedback">test text</div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="form-group">
+                                    <input style="background: {{ form.primary_color }} !important;" type="submit" value="أرسل">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="contact-content">
+                            <div class="man d-lg-block d-none">
+                                <img src="{% static '/assets/images/contact/man.png' %}" alt="bg">
+                            </div>
+                            <div id="contact" class="section-header left-style">
+                                <h3 class="title">هل لديك أسئلة؟</h3>
+                                <p>لديك أسئلة حول المدفوعات أو السعر
+                                    الخطط؟ لدينا إجابات!</p>
+                                <a href="#0">اقرأ ف <i class="fas fa-angle-left"></i></a>
+                            </div>
+                            <div class="contact-area">
+                                <div class="contact-item">
+                                    <div class="contact-thumb">
+                                        <img src="{% static '/assets/images/contact/contact1.png' %}" alt="contact">
+                                    </div>
+                                    <div class="contact-contact">
+                                        <h5 class="subtitle">ارسل لنا عبر البريد الإلكتروني</h5>
+                                        <a href="Mailto:{{ form.email }}">{{ form.email }}</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-thumb">
+                                        <img src="{% static '/assets/images/contact/contact2.png' %}" alt="contact">
+                                    </div>
+                                    <div class="contact-contact">
+                                        <h5 class="subtitle">اتصل بنا</h5>
+                                        <a href="Tel:{{ form.phone_number }}">{{ form.phone_number }}</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-thumb">
+                                        <img src="{% static '/assets/images/contact/contact3.png' %}" alt="contact">
+                                    </div>
+                                    <div class="contact-contact">
+                                        <h5 class="subtitle">زورنا</h5>
+                                        <p>{{ form.address }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--============= Contact Section Ends Here =============-->
+
+        <!--============= Footer Section Starts Here =============-->
+        <footer class="footer-section bg_img" data-background="{{ form.header_image }}">
+            <div class="container">
+                <div class="footer-top padding-top padding-bottom">
+                    <div class="logo">
+                        <a href="#0">
+                            <img src="{{ form.get_logo }}" alt="logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <ul class="footer-link">
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <small dir="ltr">
+                        Copyright © 2023.Powered By <a style="color: {{ form.primary_color }};" href="https://social-bot.io" target="_blank">Socialbot</a>
+                    </small>
+                </div>
+            </div>
+        </footer>
+        <!--============= Footer Section Ends Here =============-->
+    </div>
+
+    <script>
+        const elements = [{% for element in form.elements.all %} {id: '{{ element.id }}', type: '{{ element.type.key }}'},{% endfor %}], form_id = {{ form.id }};
+        const store = '{{ form.user.permisions }}';
+        console.log(elements)
+        async function upload() {
+            var image_data = new FormData()
+            var input = document.querySelector('input[type="file"]')
+            image_data.append('file', input.files[0])
+            return fetch('https://help-api.socialbot.dev/api/upload_media/', {
+                method: 'POST',
+                body: image_data
+            })
+                .then((response)=>response.json())
+                .then((responseJson)=>{return responseJson});
+        }
+
+        function displayError(payload){
+            console.log(payload)
+            document.getElementById(`validate${payload.id}`).style.display='block'
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                text: 'حدث خطأو, الرجاء التأكد من البيانات المدخلة.',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+        async function check() {
+            let search_ph = '', ph_id = '', search_id = '', ord_id = '';
+            elements.forEach(item => {
+                try {
+                    document.getElementById(`validate${item.id}`).style.display = 'none'
+                } catch(e){
+                    // do nothing
+                }
+                console.log(document.getElementById(item.id).value)
+                if (item.type == 'phone') {
+                    ph_id = item.id
+                    search_ph = document.getElementById(item.id).value
+                    console.log(document.getElementById(item.id).value)
+                }
+                if (item.type == 'order_id') {
+                    ord_id = item.id
+                    search_id = document.getElementById(item.id).value
+                    console.log(document.getElementById(item.id).value)
+                }
+            })
+            if (store == 'salla') {
+                return fetch(`https://help-api.socialbot.dev/api/unified/{{ form.user.account_id }}/customers/check/${search_ph}`, {
+                    method: 'GET'
+                })
+                    .then((res) => res.json())
+                    .then((resjson) => {displayError({result: resjson.result, type: 'phone', id: ph_id});return resjson.result})
+                    .catch((error) => {return false})
+            } else {
+                return fetch(`https://help-api.socialbot.dev/api/unified/{{form.user.account_id}}/orders/check/${search_id}`, {
+                    method: 'GET'
+                })
+                    .then((res) => res.json())
+                    .then((resjson) => {displayError({result: resjson.result, type: 'phone', id: ord_id});return resjson.result})
+                    .catch((error) => {return false})
+            }
+        }
+
+        document.getElementById("contact_form_submit").addEventListener("submit", async function(event){
+            event.preventDefault();
+            document.getElementsByClassName('preloader')[0].style.display = ''
+            let data = {
+                'form_id': form_id,
+                'items': []
+            }
+            let ok = null
+
+            const checking = await check()
+            console.log(checking)
+            if (checking) {
+                elements.forEach(item => {
+                    if (document.getElementById(item.id).type == 'file') {
+                        ok = item.id
+                    } else {
+                        if (document.getElementById(item.id).type == 'checkbox') {
+                            data.items.push({
+                                'id': item.id,
+                                'value': document.getElementById(item.id).checked
+                            })
+                        } else {
+                            data.items.push({
+                                'id': item.id,
+                                'value': document.getElementById(item.id).value
+                            })
+                        }
+                    }
+                })
+                if (ok != null) {
+                    const media = await upload()
+                    console.log(media)
+                    data.items.push({
+                        'id': ok,
+                        'value': media.file
+                    })
+                }
+                console.log(data)
+                fetch('https://help-api.socialbot.dev/api/tickets/', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    credentials: "same-origin",
+                    headers: {
+                        "Accept": "application/json",
+                        'Content-Type': 'application/json'
+                    },
+                    keepalive: true,
+                })
+                    .then((response) => {
+                        console.log(response)
+                        document.getElementsByClassName('preloader')[0].style.display = 'none'
+                        if (response.status == 201) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'شكرًا لك!',
+                                text: 'تم الإرسال  بنجاح.',
+                                confirmButtonText: 'حسنا',
+                                customClass: {
+                                    confirmButton: 'btn btn-success',
+                                },
+                            })
+                            document.getElementById("contact_form_submit").reset()
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'إنذار!',
+                                text: 'حدث خطأ أثناء الإرسال.',
+                                confirmButtonText: 'حسنا',
+                                customClass: {
+                                    confirmButton: 'btn btn-success',
+                                },
+                            })
+                        }
+                        return response.json()
+                    })
+                    .then((res_json) => {
+                        console.log(res_json)
+                        setTimeout(() => {
+                            window.location = `https://ticketing.socialbot.dev/public/tickets/${res_json.id}`
+                        }, 600)
+                    })
+                    .catch((error) => {
+                        document.getElementsByClassName('preloader')[0].style.display = 'none'
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'إنذار!',
+                            text: 'حدث خطأ أثناء الإرسال.',
+                            confirmButtonText: 'حسنا',
+                            customClass: {
+                                confirmButton: 'btn btn-success',
+                            },
+                        })
+                        console.log(error)
+                    })
+            } else {
+                document.getElementsByClassName('preloader')[0].style.display = 'none'
+            }
+        });
+    </script>
+
+    <script src="{%  static '/assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{%  static '/assets/js/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{%  static '/assets/js/plugins.js' %}"></script>
+    <script src="{%  static '/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{%  static '/assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{%  static '/assets/js/jquery-ui.min.js' %}"></script>
+    <script src="{%  static '/assets/js/wow.min.js' %}"></script>
+    <script src="{%  static '/assets/js/waypoints.js' %}"></script>
+    <script src="{%  static '/assets/js/nice-select.js' %}"></script>
+    <script src="{%  static '/assets/js/owl.min.js' %}"></script>
+    <script src="{%  static '/assets/js/counterup.min.js' %}"></script>
+    <script src="{%  static '/assets/js/paroller.js' %}"></script>
+    <script src="{%  static '/assets/js/main.js' %}?vv=3"></script>
+
+</body>
+
+</html>

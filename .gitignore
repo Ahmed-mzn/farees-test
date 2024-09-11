@@ -1,0 +1,10 @@
+.env
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir
+api/ml_models/models/*
+.rasa
+api/gpt_files/
+db.sqlite3
+project.__pycache__
+api.__pycache__

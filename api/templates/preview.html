@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Socialbot | Form builder</title>
+
+    <link rel="stylesheet" href="{%  static '/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/all.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/owl.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{%  static '/assets/css/main.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="shortcut icon" href="{% static '/assets/images/favicon.png' %}" type="image/x-icon">
+
+</head>
+
+<body data-spy="scroll" data-target="#faq-menu" data-offset="150">
+    <div class="reverse-gear">
+        <!--============= ScrollToTop Section Starts Here =============-->
+        <div class="preloader">
+            <div class="preloader-inner">
+                <div class="preloader-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+
+        <!--============= ScrollToTop Section Ends Here =============-->
+
+
+        <!--============= Header Section Starts Here =============-->
+        <header class="header-section inner-header">
+            <div class="container">
+                <div class="header-wrapper">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="{% static '/assets/images/logo/logo.png' %}" alt="logo">
+                        </a>
+                    </div>
+                    <ul class="menu">
+                        <li>
+                            <a href="#contact">اتصال</a>
+                        </li>
+                    </ul>
+                    <div class="header-bar d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--============= Header Section Ends Here =============-->
+
+
+        <!--============= Header Section Ends Here =============-->
+        <section class="page-header single-header bg_img oh" data-background="{% static '/assets/images/page-header.png' %}">
+            <div class="bottom-shape d-none d-md-block">
+                <img src="{% static '/assets/css/img/page-header.png' %}" alt="css">
+            </div>
+        </section>
+        <!--============= Header Section Ends Here =============-->
+
+
+
+        <!--============= Contact Section Starts Here =============-->
+        <section class="contact-section padding-top padding-bottom">
+            <div class="container">
+                <div class="section-header mw-100 cl-white">
+                    <h2 class="title">إضافة تذكرة لخدمتكم</h2>
+                    <p>سيقوم مركز العناية بالعملاء باستقبال ومراجعة التذاكر والتواصل معكم</p>
+                </div>
+                <div class="row justify-content-center justify-content-lg-between">
+                    <div class="col-lg-7">
+                        <div class="contact-wrapper">
+                            <h4 class="title text-center mb-30">إضافة تذكرة لخدمتكم</h4>
+                            <form class="contact-form" id="contact_form_submit">
+                                    <div class="form-group">
+                                        <label for="name">الإسم الثلاثي *<span style="color: red;">*</span></label>
+                                        <input type="text" placeholder="الإسم الثلاثي *" id="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">رقم الهاتف<span style="color: red;">*</span></label>
+                                        <input type="text" name="mobile" placeholder="966xxxxxxxxx" pattern="[0-9]{12}" maxlength="12" minlength="12" id="phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="order_id">رقم الطلب <span style="color: red;">*</span></label>
+                                        <input type="text" name="mobile" placeholder="رقم الطلب" pattern="[0-9]{12}" id="order_id" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ticket">فضلا إختيار التذكرة <span style="color: red;">*</span></label>
+                                        <select id="ticket" style="border-radius: 5px;padding: 10px;background-color: #f6f6fa;" required>
+                                                <option value="1">✖️ إلغاء</option>
+                                                <option value="2">↩️ استرجاع</option>
+                                                <option value="3">🔄 استبدال</option>
+                                                <option value="4">⚠️ شكوى</option>
+                                                <option value="5">❗ استفسار</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <label for="text">توضيح <span style="color: red;">*</span></label>
+                                        <textarea id="text" placeholder="توضيح" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">صورة المنتج <span style="color: red;">*</span></label>
+                                        <input type="file" accept="image/*" placeholder="إرفاق صورة المنتج" id="image" required>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="checkbo"><label for="checkbo">قرأت الشروط و الأحكام وسياسة الخصوصية</label>
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                    <input style="background: {{ form.primary_color }} !important;" type="submit" value="أرسل">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="contact-content">
+                            <div class="man d-lg-block d-none">
+                                <img src="{% static '/assets/images/contact/man.png' %}" alt="bg">
+                            </div>
+                            <div id="contact" class="section-header left-style">
+                                <h3 class="title">هل لديك أسئلة؟</h3>
+                                <p>لديك أسئلة حول المدفوعات أو السعر
+                                    الخطط؟ لدينا إجابات!</p>
+                                <a href="#0">اقرأ ف <i class="fas fa-angle-left"></i></a>
+                            </div>
+                            <div class="contact-area">
+                                <div class="contact-item">
+                                    <div class="contact-thumb">
+                                        <img src="{% static '/assets/images/contact/contact1.png' %}" alt="contact">
+                                    </div>
+                                    <div class="contact-contact">
+                                        <h5 class="subtitle">ارسل لنا عبر البريد الإلكتروني</h5>
+                                        <a href="Mailto:info@social-bot.io">info@social-bot.io</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-thumb">
+                                        <img src="{% static '/assets/images/contact/contact2.png' %}" alt="contact">
+                                    </div>
+                                    <div class="contact-contact">
+                                        <h5 class="subtitle">اتصل بنا</h5>
+                                        <a href="Tel:996126478934">996126478934</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-thumb">
+                                        <img src="{% static '/assets/images/contact/contact3.png' %}" alt="contact">
+                                    </div>
+                                    <div class="contact-contact">
+                                        <h5 class="subtitle">زورنا</h5>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--============= Contact Section Ends Here =============-->
+
+        <!--============= Footer Section Starts Here =============-->
+        <footer class="footer-section bg_img" data-background="{%  static '/assets/images/footer/footer-bg.jpg' %}">
+            <div class="container">
+                <div class="footer-top padding-top padding-bottom">
+                    <div class="logo">
+                        <a href="#0">
+                            <img src="{%  static '/assets/images/logo/footer-logo.png' %}" alt="logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <ul class="footer-link">
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <small dir="ltr">
+                        Copyright © 2023.Powered By <a style="color: {{ form.primary_color }};" href="https://social-bot.io" target="_blank">Socialbot</a>
+                    </small>
+                </div>
+            </div>
+        </footer>
+        <!--============= Footer Section Ends Here =============-->
+    </div>
+
+    <script src="{%  static '/assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{%  static '/assets/js/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{%  static '/assets/js/plugins.js' %}"></script>
+    <script src="{%  static '/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{%  static '/assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{%  static '/assets/js/jquery-ui.min.js' %}"></script>
+    <script src="{%  static '/assets/js/wow.min.js' %}"></script>
+    <script src="{%  static '/assets/js/waypoints.js' %}"></script>
+    <script src="{%  static '/assets/js/nice-select.js' %}"></script>
+    <script src="{%  static '/assets/js/owl.min.js' %}"></script>
+    <script src="{%  static '/assets/js/counterup.min.js' %}"></script>
+    <script src="{%  static '/assets/js/paroller.js' %}"></script>
+    <script src="{%  static '/assets/js/main.js' %}?vv=2"></script>
+
+</body>
+
+</html>
